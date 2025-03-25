@@ -3,11 +3,11 @@ const path = require('path');
 const multer = require('multer');
 const xlsx = require('xlsx');
 const session = require('express-session');
-const mysql = require('mysql2'); // Substituindo o PostgreSQL por MySQL
+const mysql = require('mysql2');
 const { chromium } = require('playwright');
 const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware para processar JSON
 app.use(express.json());
@@ -29,22 +29,17 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-// Configuração do pool de conexões MySQL
-const mysql = require('mysql2/promise'); // Usando mysql2 com async/await
-
-// Configuração direta com a URL do Railway
+// Configuração do pool de conexões MySQL (Railway)
 const pool = mysql.createPool({
-  host: 'hopper.proxy.rlwy.net', // Host do Railway
-  user: 'root',                 // Usuário
-  password: 'CfYJeRDGchmxLVXDXQLhLWbByRkjRQPn', // Senha (substitua se necessário)
-  database: 'railway',          // Nome do banco
-  port: 3306,                  // Porta do Railway
-  waitForConnections: true,     // Esperar por conexões se o pool estiver cheio
-  connectionLimit: 10,          // Máximo de conexões no pool
-  queueLimit: 0                 // Sem limite de fila (0 = ilimitado)
+  host: 'hopper.proxy.rlwy.net',
+  user: 'root',
+  password: 'CfYJeRDGchmxLVXDXQLhLWbByRkjRQPn',
+  database: 'railway',
+  port: 28603,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
-
-module.exports = pool;
 
 // Promisify para usar async/await com MySQL
 const promisePool = pool.promise();
@@ -283,7 +278,6 @@ app.post('/api/filtrar_inspecoes', autenticar, async (req, res) => {
   try {
     let query = 'SELECT * FROM inspecoes WHERE 1=1';
     const values = [];
-    let index = 1;
 
     if (placa) {
       query += ` AND placa = ?`;
