@@ -1,14 +1,14 @@
-const mysql = require('mysql2/promise'); // Usando mysql2 com suporte a async/await
+const mysql = require('mysql2');
 
 const pool = mysql.createPool({
-  host: 'hopper.proxy.rlwy.net',      // Host do Railway
-  user: 'root',                       // Usuário (mesmo da URL)
-  password: 'CfYJeRDGchmxLVXDXQLhLWbByRkjRQPn', // Senha da URL
-  database: 'railway',                // Nome do banco (final da URL)
-  port: 3306,                        // Porta da URL
-  waitForConnections: true,           // Configurações opcionais
-  connectionLimit: 10,                // Limite de conexões
-  queueLimit: 0,
+  host: 'hopper.proxy.rlwy.net',
+  user: 'root',
+  password: 'CfYJeRDGchmxLVXDXQLhLWbByRkjRQPn',
+  database: 'railway',
+  port: 28603,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
-module.exports = pool;
+module.exports = pool.promise();
