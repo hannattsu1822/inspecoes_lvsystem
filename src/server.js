@@ -38,7 +38,7 @@ const pool = mysql.createPool({
   user: 'root',                 // Usuário
   password: 'CfYJeRDGchmxLVXDXQLhLWbByRkjRQPn', // Senha (substitua se necessário)
   database: 'railway',          // Nome do banco
-  port: 28603,                  // Porta do Railway
+  port: 3306,                  // Porta do Railway
   waitForConnections: true,     // Esperar por conexões se o pool estiver cheio
   connectionLimit: 10,          // Máximo de conexões no pool
   queueLimit: 0                 // Sem limite de fila (0 = ilimitado)
