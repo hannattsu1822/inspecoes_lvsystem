@@ -29,13 +29,14 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-// Configuração do pool de conexões MySQL (Railway)
+const mysql = require('mysql2');
+
 const pool = mysql.createPool({
-  host: 'hopper.proxy.rlwy.net',
+  host: 'mysql.railway.internal',
   user: 'root',
   password: 'CfYJeRDGchmxLVXDXQLhLWbByRkjRQPn',
   database: 'railway',
-  port: 3306,
+  port: 28603,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
