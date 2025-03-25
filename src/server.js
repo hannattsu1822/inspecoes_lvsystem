@@ -30,15 +30,21 @@ app.use(session({
 }));
 
 // Configuração do pool de conexões MySQL
+const mysql = require('mysql2/promise'); // Usando mysql2 com async/await
+
+// Configuração direta com a URL do Railway
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '289956Hg@#', // Substitua pela sua senha
-  database: 'banco_linha', // Substitua pelo nome do seu banco
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+  host: 'hopper.proxy.rlwy.net', // Host do Railway
+  user: 'root',                 // Usuário
+  password: 'CfYJeRDGchmxLVXDXQLhLWbByRkjRQPn', // Senha (substitua se necessário)
+  database: 'railway',          // Nome do banco
+  port: 28603,                  // Porta do Railway
+  waitForConnections: true,     // Esperar por conexões se o pool estiver cheio
+  connectionLimit: 10,          // Máximo de conexões no pool
+  queueLimit: 0                 // Sem limite de fila (0 = ilimitado)
 });
+
+module.exports = pool;
 
 // Promisify para usar async/await com MySQL
 const promisePool = pool.promise();
